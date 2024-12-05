@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1><caption>Disease</caption></h1>
+        <h1><caption>Disease</caption></h1>
+        <h1><caption>Disease</caption></h1>
+        <h2 align="center">Heart Disease Prediction</h2>
+        <form id="predictionForm">
+            <input type="number" placeholder="Age" id="age" required>
+            <select id="sex">
+                <option value="1">Male</option>
+                <option value="0">Female</option>
+            </select>
+            <input type="number" placeholder="Chest Pain Type (1-4)" id="cp" required>
+            <input type="number" placeholder="Resting Blood Pressure" id="trestbps" required>
+            <input type="number" placeholder="Cholesterol" id="chol" required>
+            <input type="number" placeholder="Fasting Blood Sugar (0 or 1)" id="fbs" required>
+            <input type="number" placeholder="Rest ECG (0-2)" id="restecg" required>
+            <input type="number" placeholder="Max Heart Rate" id="thalach" required>
+            <input type="number" placeholder="Exercise Induced Angina (0 or 1)" id="exang" required>
+            <input type="number" placeholder="Oldpeak" id="oldpeak" required>
+            <input type="number" placeholder="Slope (1-3)" id="slope" required>
+            <input type="number" placeholder="Number of Major Vessels (0-3)" id="ca" required>
+            <input type="number" placeholder="Thal (3, 6, or 7)" id="thal" required>
+            <button type="submit">Predict</button>
+        </form>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const data = {
+                age: parseInt(document.getElementById('age').value),
+                sex: parseInt(document.getElementById('sex').value),
+                cp: parseInt(document.getElementById('cp').value),
+                trestbps: parseInt(document.getElementById('trestbps').value),
+                chol: parseInt(document.getElementById('chol').value),
+                fbs: parseInt(document.getElementById('fbs').value),
+                restecg: parseInt(document.getElementById('restecg').value),
+                thalach: parseInt(document.getElementById('thalach').value),
+                exang: parseInt(document.getElementById('exang').value),
+                oldpeak: parseFloat(document.getElementById('oldpeak').value),
+                slope: parseInt(document.getElementById('slope').value),
+                ca: parseInt(document.getElementById('ca').value),
+                thal: parseInt(document.getElementById('thal').value)
+            };
+
+            const response = await fetch('/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            document.getElementById('result').innerText = result.message;
+        });
+    </script>
+</body>
+</html>
