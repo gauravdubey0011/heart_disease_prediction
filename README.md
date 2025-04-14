@@ -46,9 +46,9 @@ Features
     scikit-learn
     pandas
     numpy
-    # matplotlib  # Include if used
-    # seaborn    # Include if used
-    # flask      # Include if used
+    matplotlib  
+    seaborn    
+    flask      
    
 ## Usage
 
